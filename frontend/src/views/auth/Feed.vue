@@ -8,12 +8,7 @@
           <div class="card has-background-success-light p-2">
             <div class="field m-2">
               <div class="m-2">
-                <input
-                  class="input"
-                  type="text"
-                  placeholder="Image"
-                  v-model="image"
-                />
+                <FileUpload @image-selected="selectedImage = $event"/>
               </div>
               <div class="m-2">
                 <input
@@ -122,21 +117,20 @@
           <div class="">
             <BlueTempalte
               :name="name"
-              :image="image"
+              :imageData="selectedImage"
               :profile="profile"
             />
           </div>
         </div>
       </div>
+      <br>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import BlueTempalte from "../templates/BlueTemplate.vue"
-
-const image = ref("");
+import { ref, inject, computed  } from "vue";
+const store = inject('store');
 const name = ref("");
 const profile = ref("");
 const profileController = ref(0);
@@ -147,6 +141,24 @@ const firstControllerEd = ref(0);
 const secondControllerEd = ref(0);
 const thirdControllerEd = ref(0);
 const palceholder = ref();
+
+
+const selectedImage = computed(() => {
+  return store.state.selectedImage
+})
+</script>
+
+<script>
+import { inject } from 'vue';
+import FileUpload from '../../components/FileUpload.vue';
+import BlueTempalte from "../templates/BlueTemplate.vue";
+
+export default {
+  components: {
+    FileUpload,
+    BlueTempalte,
+  },
+};
 </script>
 
 <style scoped>

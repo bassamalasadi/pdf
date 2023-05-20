@@ -3,6 +3,7 @@ import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
+import { store } from './stores';
 
 import './assets/main.css'
 
@@ -33,5 +34,6 @@ const analytics = getAnalytics(appfirebase);
 
 app.use(createPinia())
 app.use(router)
+app.provide('store', store);
 
 app.mount('#app')
