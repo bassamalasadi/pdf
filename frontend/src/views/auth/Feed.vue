@@ -18,7 +18,92 @@
                   v-model="name"
                 />
               </div>
-
+              <div class="m-2">
+                <input
+                  class="input"
+                  type="text"
+                  placeholder="Job Title"
+                  v-model="jobTitle"
+                />
+              </div>
+              <p class="details">Details</p>
+              <div class="m-2">
+                <input
+                  class="input"
+                  type="text"
+                  placeholder="Email"
+                  v-model="email"
+                />
+              </div>
+              <div class="m-2">
+                <input
+                  class="input"
+                  type="text"
+                  placeholder="Phone"
+                  v-model="phone"
+                />
+              </div>
+              <div class="m-2">
+                <input
+                  class="input"
+                  type="text"
+                  placeholder="Country"
+                  v-model="country"
+                />
+              </div>
+              <div class="m-2">
+                <input
+                  class="input"
+                  type="text"
+                  placeholder="City"
+                  v-model="city"
+                />
+              </div>
+              <p class="details">Links</p>
+              <div class="m-2">
+                <input
+                  class="input"
+                  type="text"
+                  placeholder="Linkedin"
+                  v-model="linkedin"
+                />
+              </div>
+              <div class="m-2">
+                <input
+                  class="input"
+                  type="text"
+                  placeholder="Github"
+                  v-model="github"
+                />
+              </div>
+              <div class="m-2">
+                <input
+                  class="input"
+                  type="text"
+                  placeholder="Portfolio"
+                  v-model="portfolio"
+                />
+              </div>
+              <div class="m-2">
+                <input
+                  class="input"
+                  type="text"
+                  placeholder="Website"
+                  v-model="website"
+                />
+              </div>
+              <div>
+                <br>
+                <span class="details">Skills</span>
+                <span class="button is-dark is-pulled-right is-small is-rounded" @click="addInputElement">Add skill</span>
+                <div v-for="(input, index) in skills" :key="index">
+                  <div class="m-2 columns">
+                    <input class="input is-small column is-offset-0" v-model="input.value" :placeholder="input.placeholder">
+                    <button class="button is-small is-danger is-pulled-right" @click="removeInput(index)">Remove</button>
+                  </div>
+                </div>
+              </div>
+              <br>
               <div class="panel my-5 mx-2">
                 <div
                   class="panel-heading has-background-link-light"
@@ -27,7 +112,7 @@
                   Profile
                 </div>
                 <div class="panel-block" v-show="profileController == 1">
-                  <textarea class="input" v-model="profile" />
+                  <textarea class="textarea" v-model="profile" rows="10" />
                 </div>
               </div>
               <br>
@@ -42,7 +127,7 @@
                   First
                 </div>
                 <div class="panel-block" v-show="firstController == 1">
-                  <textarea class="input" v-model="profile" />
+                  <textarea class="input" v-model="profile"  @click="convertLineBreaks"/>
                 </div>
               </div>
 
@@ -116,8 +201,18 @@
         <div class="column card has-background-link-light">
           <div class="">
             <BlueTempalte
-              :name="name"
               :imageData="selectedImage"
+              :name="name"
+              :jobTitle="jobTitle"
+              :email="email"
+              :phone="phone"
+              :country="country"
+              :city="city"
+              :linkedin="linkedin"
+              :github="github"
+              :portfolio="portfolio"
+              :website="website"
+              :skills="skills"
               :profile="profile"
             />
           </div>
@@ -131,7 +226,18 @@
 <script setup>
 import { ref, inject, computed  } from "vue";
 const store = inject('store');
+const inputText = ref("")
 const name = ref("");
+const jobTitle = ref("")
+const email = ref("")
+const phone = ref("")
+const country = ref("")
+const city = ref("")
+const linkedin = ref("")
+const github = ref("")
+const portfolio = ref("")
+const website = ref("")
+const skills = ref([]);
 const profile = ref("");
 const profileController = ref(0);
 const firstController = ref(0);
@@ -142,6 +248,16 @@ const secondControllerEd = ref(0);
 const thirdControllerEd = ref(0);
 const palceholder = ref();
 
+function addInputElement() {
+  skills.value.push({
+    value: '',
+    placeholder: 'Enter Skill...'
+  });
+}
+
+const removeInput = (index) => {
+  skills.value.splice(index, 1);
+};
 
 const selectedImage = computed(() => {
   return store.state.selectedImage
@@ -170,5 +286,10 @@ export default {
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
+}
+.details {
+  margin: 15px;
+  font-size: 18px;
+  font-weight: bold;
 }
 </style>
