@@ -1,112 +1,125 @@
 <template>
   <br />
-  <div class="container">
+  <div class="">
     <div class="card">
       <br />
       <div class="columns m-2">
-        <div class="column is-two-fifths">
+        <div class="column is-half scrollable-container">
           <div class="card has-background-success-light p-2">
             <div class="field m-2">
               <div class="m-2">
                 <FileUpload @image-selected="selectedImage = $event"/>
               </div>
-              <div class="m-2">
-                <input
-                  class="input"
-                  type="text"
-                  placeholder="Name"
-                  v-model="name"
-                />
+              <br>
+              <div class="panel">
+                <p
+                  class="panel-heading"
+                   @click="userInfoController == 1 ? (userInfoController = 0) : (userInfoController = 1)"
+                >User Information</p>
+                <div class="panel-block"  v-show="userInfoController == 1">
+                  <input
+                    class="input"
+                    type="text"
+                    placeholder="Name"
+                    v-model="name"
+                  />
+                  <input
+                    class="input"
+                    type="text"
+                    placeholder="Job Title"
+                    v-model="jobTitle"
+                  />
+                </div>
               </div>
-              <div class="m-2">
-                <input
-                  class="input"
-                  type="text"
-                  placeholder="Job Title"
-                  v-model="jobTitle"
-                />
-              </div>
-              <p class="details">Details</p>
-              <div class="m-2">
-                <input
-                  class="input"
-                  type="text"
-                  placeholder="Email"
-                  v-model="email"
-                />
-              </div>
-              <div class="m-2">
-                <input
-                  class="input"
-                  type="text"
-                  placeholder="Phone"
-                  v-model="phone"
-                />
-              </div>
-              <div class="m-2">
-                <input
-                  class="input"
-                  type="text"
-                  placeholder="Country"
-                  v-model="country"
-                />
-              </div>
-              <div class="m-2">
-                <input
-                  class="input"
-                  type="text"
-                  placeholder="City"
-                  v-model="city"
-                />
-              </div>
-              <p class="details">Links</p>
-              <div class="m-2">
-                <input
-                  class="input"
-                  type="text"
-                  placeholder="Linkedin"
-                  v-model="linkedin"
-                />
-              </div>
-              <div class="m-2">
-                <input
-                  class="input"
-                  type="text"
-                  placeholder="Github"
-                  v-model="github"
-                />
-              </div>
-              <div class="m-2">
-                <input
-                  class="input"
-                  type="text"
-                  placeholder="Portfolio"
-                  v-model="portfolio"
-                />
-              </div>
-              <div class="m-2">
-                <input
-                  class="input"
-                  type="text"
-                  placeholder="Website"
-                  v-model="website"
-                />
-              </div>
-              <div>
-                <br>
-                <span class="details">Skills</span>
-                <span class="button is-dark is-pulled-right is-small is-rounded" @click="addInputElement">Add skill</span>
-                <div v-for="(input, index) in skills" :key="index">
-                  <div class="m-2 columns">
-                    <input class="input is-small column is-offset-0" v-model="input.value" :placeholder="input.placeholder">
-                    <button class="button is-small is-danger is-pulled-right" @click="removeInput(index)">Remove</button>
+              <div class="panel">
+                <p
+                  class="panel-heading"
+                  @click="detailController == 1 ? (detailController = 0) : (detailController = 1)"
+                >Details</p>
+                <div
+                  class="panel-block"
+                  v-show="detailController == 1"
+                >
+                  <div class="m-2">
+                    <input
+                      class="input"
+                      type="text"
+                      placeholder="Email"
+                      v-model="email"
+                    />
+                  </div>
+                  <div class="m-2">
+                    <input
+                      class="input"
+                      type="text"
+                      placeholder="Phone"
+                      v-model="phone"
+                    />
+                  </div>
+                  <div class="m-2">
+                    <input
+                      class="input"
+                      type="text"
+                      placeholder="Country"
+                      v-model="country"
+                    />
+                  </div>
+                  <div class="m-2">
+                    <input
+                      class="input"
+                      type="text"
+                      placeholder="City"
+                      v-model="city"
+                    />
                   </div>
                 </div>
               </div>
-              <br>
-              <div class="panel my-5 mx-2">
+              <div class="panel">
+                <p
+                  class="panel-heading"
+                  @click="linkController == 1 ? (linkController = 0) : (linkController = 1)"
+                >Websites & Social Links</p>
                 <div
-                  class="panel-heading has-background-link-light"
+                  class="panel-block"
+                  v-show="linkController == 1"
+                >
+                  <div class="m-2">
+                    <input
+                      class="input"
+                      type="text"
+                      placeholder="Linkedin"
+                      v-model="linkedin"
+                      />
+                    </div>
+                  <div class="m-2">
+                    <input
+                      class="input"
+                      type="text"
+                      placeholder="Github"
+                      v-model="github"
+                      />
+                  </div>
+                  <div class="m-2">
+                    <input
+                    class="input"
+                    type="text"
+                    placeholder="Portfolio"
+                    v-model="portfolio"
+                    />
+                  </div>
+                  <div class="m-2">
+                    <input
+                    class="input"
+                    type="text"
+                    placeholder="Website"
+                    v-model="website"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="panel">
+                <div
+                  class="panel-heading"
                   v-on:click="profileController == 1 ? (profileController = 0) : (profileController = 1)"
                 >
                   Profile
@@ -115,92 +128,81 @@
                   <textarea class="textarea" v-model="profile" rows="10" />
                 </div>
               </div>
-              <br>
-              <h1>Employment History</h1>
               <hr class="has-background-black-ter" />
-
-              <div class="panel my-5 mx-2">
-                <div
-                  class="panel-heading has-background-link-light"
-                  v-on:click="firstController == 1 ? (firstController = 0) : (firstController = 1)"
-                >
-                  First
-                </div>
-                <div class="panel-block" v-show="firstController == 1">
-                  <textarea class="input" v-model="profile"  @click="convertLineBreaks"/>
-                </div>
-              </div>
-
-              <div class="panel my-5 mx-2">
-                <div
-                  class="panel-heading has-background-link-light"
-                  v-on:click="secondController == 1 ? (secondController = 0) : (secondController = 1)"
-                >
-                  Second
-                </div>
-                <div class="panel-block" v-show="secondController == 1">
-                  <textarea class="input" v-model="profile" />
-                </div>
-              </div>
-
-              <div class="panel my-5 mx-2">
-                <div
-                  class="panel-heading has-background-link-light"
-                  v-on:click="thirdController == 1 ? (thirdController = 0) : (thirdController = 1)"
-                >
-                  Third
-                </div>
-                <div class="panel-block" v-show="thirdController == 1">
-                  <textarea class="input" v-model="profile" />
+              <br>
+              <div class="card p-5 has-background-light">
+                <span class="details">Skills</span>
+                <span class="button is-dark is-pulled-right is-small is-rounded" @click="addInputSkill">Add</span>
+                <hr class="has-background-black-ter" />
+                <div v-for="(input, index) in skills" :key="index">
+                  <div class="m-2 columns">
+                    <input class="input is-small column is-offset-0" v-model="input.value" :placeholder="input.placeholder">
+                    <button class="button is-small is-danger is-pulled-right" @click="removeSkill(index)">Remove</button>
+                  </div>
                 </div>
               </div>
               <br>
-              <h1>Education</h1>
-              <hr class="has-background-black-ter" />
-              <div class="panel my-5 mx-2">
-                <div
-                  class="panel-heading has-background-link-light"
-                  v-on:click="firstControllerEd == 1 ? (firstControllerEd = 0) : (firstControllerEd = 1)"
-                >
-                  First
-                </div>
-                <div class="panel-block" v-show="firstControllerEd == 1">
-                  <textarea class="input" v-model="profile" />
-                </div>
-              </div>
-
-              <div class="panel my-5 mx-2">
-                <div
-                  class="panel-heading has-background-link-light"
-                  v-on:click="secondControllerEd == 1 ? (secondControllerEd = 0) : (secondControllerEd = 1)"
-                >
-                  Second
-                </div>
-                <div class="panel-block" v-show="secondControllerEd == 1">
-                  <textarea class="input" v-model="profile" />
-                </div>
-              </div>
-
-              <div class="panel my-5 mx-2">
-                <div
-                  class="panel-heading has-background-link-light"
-                  v-on:click="thirdControllerEd == 1 ? (thirdControllerEd = 0) : (thirdControllerEd = 1)"
-                >
-                  Third
-                </div>
-                <div class="panel-block" v-show="thirdControllerEd == 1">
-                  <textarea class="input" v-model="profile" />
+              <div class="card p-5 has-background-light">
+                <span class="details">Employment History</span>
+                <span class="button is-dark is-small is-pulled-right is-rounded" @click="addInputHistory">Add</span>
+                <hr class="has-background-black-ter" />
+                <br>
+                <div v-for="(input, index) in employmentHistory" :key="index">
+                  <button class="button is-small is-danger is-pulled-right" @click="removeHistory(index)">X</button>
+                  <div class="my-1 mr-5 pr-5">
+                    <input class="input is-small column is-offset-0" v-model="input.title" :placeholder="input.titlePlaceHolder">
+                    <span>Start Date</span>
+                    <input type="date" v-model="input.selectedStartDate">
+                    <span>End Date</span>
+                    <input type="date" v-model="input.selectedEndDate">
+                    <textarea
+                      class="textarea is-small column is-offset-0"
+                      v-model="input.value"
+                      :placeholder="input.placeholder"
+                      @click="convertLineBreaks"
+                      row="10"
+                    />
+                    <br>
+                    <hr class="has-background-black-ter" />
+                    <br>
+                  </div>
                 </div>
               </div>
-              <div class="m-5 is-pulled-right">
-                <a class="button is-info"> Download </a>
+              <br>
+              <div class="card p-5 has-background-light">
+                <span class="details">Education</span>
+                <span class="button is-dark is-small is-pulled-right is-rounded" @click="addInputEducation">Add</span>
+                <hr class="has-background-black-ter" />
+                <br>
+                <div v-for="(input, index) in education" :key="index">
+                  <button class="button is-small is-danger is-pulled-right" @click="removeEducation(index)">X</button>
+                  <div class="my-1 mr-5 pr-5">
+                    <input class="input is-small column is-offset-0" v-model="input.school" placeholder="School">
+                    <input class="input is-small column is-offset-0" v-model="input.degree" placeholder="Degree">
+                    <input class="input is-small column is-offset-0" v-model="input.city" placeholder="City">
+                    <span>Start Date</span>
+                    <input type="date" v-model="input.selectedStartDate">
+                    <span>End Date</span>
+                    <input type="date" v-model="input.selectedEndDate">
+                    <textarea
+                      class="textarea is-small column is-offset-0"
+                      v-model="input.description"
+                      placeholder="Enter education History..."
+                      @click="convertLineBreaks"
+                      row="10"
+                    />
+                    <br>
+                    <hr class="has-background-black-ter" />
+                    <br>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div class="column card has-background-link-light">
           <div class="">
-            <BlueTempalte
+            <BlueTemplate
               :imageData="selectedImage"
               :name="name"
               :jobTitle="jobTitle"
@@ -213,6 +215,8 @@
               :portfolio="portfolio"
               :website="website"
               :skills="skills"
+              :employmentHistory="employmentHistory"
+              :education="education"
               :profile="profile"
             />
           </div>
@@ -225,6 +229,7 @@
 
 <script setup>
 import { ref, inject, computed  } from "vue";
+
 const store = inject('store');
 const inputText = ref("")
 const name = ref("");
@@ -238,8 +243,13 @@ const github = ref("")
 const portfolio = ref("")
 const website = ref("")
 const skills = ref([]);
+const employmentHistory = ref([]);
+const education = ref([]);
 const profile = ref("");
 const profileController = ref(0);
+const userInfoController = ref(0);
+const detailController = ref(0);
+const linkController = ref(0);
 const firstController = ref(0);
 const secondController = ref(0);
 const thirdController = ref(0);
@@ -248,17 +258,46 @@ const secondControllerEd = ref(0);
 const thirdControllerEd = ref(0);
 const palceholder = ref();
 
-function addInputElement() {
+function addInputSkill() {
   skills.value.push({
     value: '',
     placeholder: 'Enter Skill...'
   });
 }
 
-const removeInput = (index) => {
+function addInputHistory() {
+  employmentHistory.value.push({
+    title: '',
+    selectedStartDate: null,
+    selectedEndDate: null,
+    value: '',
+    titlePlaceHolder: 'Enter Title',
+    placeholder: 'Enter Employment History...',
+  })
+}
+
+function addInputEducation() {
+  education.value.push({
+    school: '',
+    degree: '',
+    city: '',
+    description: '',
+    selectedStartDate: null,
+    selectedEndDate: null,
+  })
+}
+
+const removeSkill = (index) => {
   skills.value.splice(index, 1);
 };
 
+const removeHistory = (index) => {
+  employmentHistory.value.splice(index, 1);
+};
+
+const removeEducation = (index) => {
+  education.value.splice(index, 1);
+};
 const selectedImage = computed(() => {
   return store.state.selectedImage
 })
@@ -267,12 +306,12 @@ const selectedImage = computed(() => {
 <script>
 import { inject } from 'vue';
 import FileUpload from '../../components/FileUpload.vue';
-import BlueTempalte from "../templates/BlueTemplate.vue";
+import BlueTemplate from "../templates/BlueTemplate.vue";
 
 export default {
   components: {
     FileUpload,
-    BlueTempalte,
+    BlueTemplate,
   },
 };
 </script>
@@ -292,4 +331,5 @@ export default {
   font-size: 18px;
   font-weight: bold;
 }
+
 </style>
